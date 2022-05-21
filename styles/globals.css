@@ -1,16 +1,15 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/SFProDisplay-Regular.otf");
+  font-weight: 400;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/SFProDisplay-Medium.otf");
+  font-weight: 500;
 }
-
-* {
-  box-sizing: border-box;
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/SFProDisplay-Bold.otf");
+  font-weight: 700;
 }
