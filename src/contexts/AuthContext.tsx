@@ -31,6 +31,7 @@ interface AuthContextValues {
   signIn: () => void;
   signOut: () => void;
   data: IUser;
+  login: boolean;
 }
 
 const AuthContext = createContext<AuthContextValues>({} as AuthContextValues);
@@ -38,6 +39,7 @@ const AuthContext = createContext<AuthContextValues>({} as AuthContextValues);
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(() => auth.currentUser);
   const [data, setData] = useState({} as IUser);
+  const [login, setLogin] = useState(false);
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((_user) => {
@@ -52,6 +54,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const provider = new GoogleAuthProvider();
 
     try {
+      console.log("start loading");
       const _user = await signInWithPopup(auth, provider);
       const moreUserInfo = getAdditionalUserInfo(_user);
       console.log(auth);
@@ -69,6 +72,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         await setDoc(doc(db, "users", uid), payload);
       }
+      setLogin(true);
+      console.log("end loading");
     } catch (err) {
       console.log(err);
     }
@@ -97,8 +102,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const contextValues = useMemo(
-    () => ({ user, signIn, signOut, data }),
-    [user, signIn, signOut, data]
+    () => ({ user, signIn, signOut, data, login }),
+    [user, signIn, signOut, data, login]
   );
 
   return (

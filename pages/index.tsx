@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
+import { SignIn } from "../src/components/SignIn";
 import { useAuth } from "../src/contexts/AuthContext";
 
 const Home: NextPage = () => {
-  const { signIn, signOut, data } = useAuth();
-  const [login, setLogin] = useState(false);
+  const { signIn, signOut, data, login } = useAuth();
 
   return (
     <div>
@@ -18,39 +18,19 @@ const Home: NextPage = () => {
       <div className="App flex h-screen flex-col items-center justify-center">
         <>
           {!login ? (
-            <button
-              onClick={() => {
-                signIn();
-                setLogin(true);
-              }}
-              type="button"
-              className="login-with-google-btn rounded bg-system-blue p-3 text-white"
-            >
-              Sign in with Google
-            </button>
+            <SignIn />
           ) : (
-            <button
-              type="button"
-              className="login-with-google-btn bg-red-600 p-3 text-black"
-              disabled
-            >
-              Sign in with Google
-            </button>
+            <>
+              <h1>Hello, Firebase Auth</h1>
+              <h2>Welcome, {data.username} </h2>
+              <img src={data.photoURL as string} alt="user image" />
+            </>
           )}
         </>
-
-        {login && (
-          <>
-            <h1>Hello, Firebase Auth</h1>
-            <h2>Welcome, {data.username} </h2>
-            <img src={data.photoURL as string} alt="user image" />
-          </>
-        )}
 
         <button
           onClick={() => {
             signOut();
-            setLogin(false);
           }}
           className="mt-3 rounded bg-system-gray-5 p-3 text-black"
         >
