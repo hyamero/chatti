@@ -8,16 +8,17 @@ interface ConversationProps {}
 
 export const Chat: React.FC<ConversationProps> = ({}) => {
   return (
-    <div className="relative h-[60vh] w-[60vw] bg-white">
-      <div className="flex justify-between bg-system-gray-5 px-8 pt-7 pb-3">
+    <div className="relative h-full w-full rounded-tr-lg rounded-br-lg bg-white">
+      <div className="flex justify-between rounded-tr-lg bg-system-gray-5 px-8 pt-7 pb-3">
         <div>
-          <span className="text-system-gray-2 ">To: </span>Eliza Block
+          <span className="text-system-gray-2 ">To: </span>{" "}
+          <span className="font-medium">Eliza Block</span>
         </div>
         <span className="cursor-pointer text-[#00A9F6]">Details</span>
       </div>
       <User />
-      <div className="absolute left-0 bottom-0 flex w-full items-center justify-between space-x-2 bg-system-gray-6 p-5">
-        <div className="icons flex items-center  space-x-2 text-system-gray-dark-1">
+      <div className="absolute left-0 bottom-0 flex w-full items-center justify-between space-x-3 rounded-br-lg bg-system-gray-6 p-5">
+        <div className="icons flex items-center space-x-3 text-system-gray-dark-1">
           <AiFillPlusCircle className="cursor-pointer text-[1.7rem]" />
           <BsImageFill className="cursor-pointer text-2xl" />
         </div>
@@ -25,13 +26,13 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
           <input
             type="text"
             placeholder="Aa"
-            className="w-full rounded-full border-2 border-system-gray-3 px-5 py-1 text-xl outline-none"
+            className="w-full rounded-full border-2 border-system-gray-3 py-1 pl-5 pr-11 text-xl outline-none"
           />
           <button className="absolute top-1/4 right-5 cursor-pointer text-xl text-system-blue">
             <RiSendPlaneFill />
           </button>
         </form>
-        <BsEmojiWink className="cursor-pointer text-2xl text-system-gray-dark-2" />
+        <BsEmojiWink className="cursor-pointer text-3xl text-system-gray-dark-2" />
       </div>
     </div>
   );

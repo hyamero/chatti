@@ -6,7 +6,7 @@ interface ChatProps {}
 
 export const Chatti: React.FC<ChatProps> = ({}) => {
   return (
-    <div className="flex">
+    <div className="flex h-[70vh] w-[60vw]  max-w-screen-xl">
       <Conversations />
       <Chat />
     </div>
