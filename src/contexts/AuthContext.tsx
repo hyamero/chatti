@@ -95,6 +95,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signOut = useCallback(async () => {
     try {
       await auth.signOut();
+      setLogin(false);
       console.log(auth);
     } catch (err) {
       console.log(err);

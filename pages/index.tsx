@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
+import { Chatti } from "../src/components/Chatti";
 import { SignIn } from "../src/components/SignIn";
 import { useAuth } from "../src/contexts/AuthContext";
 
 const Home: NextPage = () => {
-  const { signIn, signOut, data, login } = useAuth();
+  const { login } = useAuth();
 
   return (
     <div>
@@ -15,27 +16,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="App flex h-screen flex-col items-center justify-center">
-        <>
-          {!login ? (
-            <SignIn />
-          ) : (
-            <>
-              <h1>Hello, Firebase Auth</h1>
-              <h2>Welcome, {data.username} </h2>
-              <img src={data.photoURL as string} alt="user image" />
-            </>
-          )}
-        </>
-
-        <button
-          onClick={() => {
-            signOut();
-          }}
-          className="mt-3 rounded bg-system-gray-5 p-3 text-black"
-        >
-          Sign Out
-        </button>
+      <div className="App flex h-screen flex-col items-center justify-center font-sfpro">
+        <>{!login ? <SignIn /> : <Chatti />}</>
       </div>
     </div>
   );
