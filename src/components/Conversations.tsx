@@ -52,8 +52,20 @@ const Convo: React.FC<ConvoProps> = ({ active, setActive }) => {
           <div className="user flex items-center space-x-3">
             <div className="img h-14 w-14 rounded-full bg-green-500/50"></div>
             <div className="-space-y-1">
-              <p className="name text-base font-bold">Eliza Block</p>
-              <p className="text-sm text-system-gray-dark-3">
+              <p
+                className={`text-base font-bold ${
+                  active === i ? "font-medium text-white" : "text-black"
+                }`}
+              >
+                Eliza Block
+              </p>
+              <p
+                className={`text-sm ${
+                  active === i
+                    ? "text-system-gray-6"
+                    : "text-system-gray-dark-3"
+                }`}
+              >
                 LOL! that is insane
               </p>
             </div>

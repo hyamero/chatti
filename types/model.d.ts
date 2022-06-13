@@ -4,4 +4,6 @@ export interface IUser {
     photoURL?: string | null;
     email?: string | null;
     dateJoined: any;
+    uid?: string;
+    displayName?: string;
   }
