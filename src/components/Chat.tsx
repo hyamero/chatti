@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 
 import {
@@ -10,12 +10,13 @@ import {
   limit,
   onSnapshot,
 } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 
 import { AiFillPlusCircle } from "react-icons/ai";
 import { BsEmojiWink, BsImageFill } from "react-icons/bs";
 import { RiSendPlaneFill } from "react-icons/ri";
-import { IUser } from "../../types/model";
+import { IMessage, IUser } from "../../types/model";
+import { Messages } from "./Messages";
 
 const messagesRef = collection(db, "messages");
 
@@ -24,7 +25,7 @@ interface ConversationProps {}
 export const Chat: React.FC<ConversationProps> = ({}) => {
   const { data } = useAuth();
   const [messageValue, setMessageValue] = useState<string>("");
-  const [messages, setMessages] = useState<any>([] as IUser);
+  const [messages, setMessages] = useState<any>([] as IMessage);
 
   useEffect(() => {
     const q = query(messagesRef, orderBy("createdAt", "asc"), limit(25));
@@ -56,18 +57,26 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
       });
 
     setMessageValue("");
+    scrollRef.current?.scrollIntoView();
   };
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="relative h-full w-full rounded-tr-lg rounded-br-lg bg-white">
-      <div className="flex justify-between rounded-tr-lg bg-system-gray-5 px-8 pt-7 pb-3">
+    <div className="relative h-full w-full overflow-hidden rounded-tr-lg rounded-br-lg bg-white">
+      <div className="absolute z-10 flex w-full justify-between rounded-tr-lg bg-system-gray-5 px-8 pt-7 pb-3">
         <div>
           <span className="text-system-gray-2 ">To: </span>{" "}
-          <span className="font-medium">Eliza Block</span>
+          <span className=" font-medium">Eliza Block</span>
         </div>
         <span className="cursor-pointer text-[#00A9F6]">Details</span>
       </div>
-      <User />
+      <div className="scroll-container absolute top-0 left-0 h-full w-full overflow-y-scroll scroll-smooth pb-32">
+        <User />
+        <Messages messages={messages} />
+        <div ref={scrollRef}></div>
+      </div>
+      {/* Message Input */}
       <div className="absolute left-0 bottom-0 flex w-full items-center justify-between space-x-3 rounded-br-lg bg-system-gray-6 p-5">
         <div className="icons flex items-center space-x-3 text-system-gray-dark-1">
           <AiFillPlusCircle className="cursor-pointer text-[1.7rem]" />
@@ -100,7 +109,7 @@ const User: React.FC = () => {
   const { signOut, data } = useAuth();
 
   return (
-    <div className="mt-20 w-full text-center">
+    <div className="mt-28 mb-10 w-full text-center">
       <h1>Hello, Firebase Auth</h1>
       <h2>Welcome, {data.username} </h2>
       <img

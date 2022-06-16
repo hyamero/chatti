@@ -7,3 +7,17 @@ export interface IUser {
     uid?: string;
     displayName?: string;
   }
+
+  export interface IMessage {
+    author?: {
+      id: string;
+      name: string;
+      photoURL: string
+    };
+    createdAt?: {
+      seconds: number,
+      nanoseconds: number;
+    };
+    id?: string;
+    messageValue?: string;
+  }
