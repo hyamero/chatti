@@ -1,19 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  Timestamp,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
 
 import { AiFillPlusCircle } from "react-icons/ai";
 import { BsEmojiWink, BsImageFill } from "react-icons/bs";
 import { RiSendPlaneFill } from "react-icons/ri";
+import { IUser } from "../../types/model";
+
+const messagesRef = collection(db, "messages");
 
 interface ConversationProps {}
 
 export const Chat: React.FC<ConversationProps> = ({}) => {
   const { data } = useAuth();
-  const messagesRef = collection(db, "messages");
-  const [messageValue, setMessageValue] = useState("");
+  const [messageValue, setMessageValue] = useState<string>("");
+  const [messages, setMessages] = useState<any>([] as IUser);
+
+  useEffect(() => {
+    const q = query(messagesRef, orderBy("createdAt", "asc"), limit(25));
+    const snapshot = onSnapshot(q, (snapshot) => {
+      let _messages: any = [];
+      snapshot.docs.forEach((doc) => {
+        _messages.push({
+          ...doc.data(),
+          id: doc.id,
+        });
+      });
+      setMessages(_messages);
+      console.log(_messages);
+    });
+
+    return snapshot;
+  }, []);
 
   const createMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,8 +57,6 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
 
     setMessageValue("");
   };
-
-  // const [messages] = useCollectionData();
 
   return (
     <div className="relative h-full w-full rounded-tr-lg rounded-br-lg bg-white">

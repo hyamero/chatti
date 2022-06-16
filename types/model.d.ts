@@ -3,7 +3,7 @@ export interface IUser {
     username?: string;
     photoURL?: string | null;
     email?: string | null;
-    dateJoined: any;
+    dateJoined?: any;
     uid?: string;
     displayName?: string;
   }
