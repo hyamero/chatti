@@ -28,7 +28,7 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
   const [messages, setMessages] = useState<any>([] as IMessage);
 
   useEffect(() => {
-    const q = query(messagesRef, orderBy("createdAt", "asc"), limit(25));
+    const q = query(messagesRef, orderBy("createdAt", "desc"), limit(25));
     const snapshot = onSnapshot(q, (snapshot) => {
       let _messages: any = [];
       snapshot.docs.forEach((doc) => {
@@ -56,8 +56,8 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
         author: { name: username, photoURL, id },
       });
 
-    setMessageValue("");
     scrollRef.current?.scrollIntoView();
+    setMessageValue("");
   };
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -71,7 +71,7 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
         </div>
         <span className="cursor-pointer text-[#00A9F6]">Details</span>
       </div>
-      <div className="scroll-container absolute top-0 left-0 h-full w-full overflow-y-scroll scroll-smooth pb-32">
+      <div className="scroll-container absolute top-0 left-0 h-full w-full overflow-y-scroll scroll-smooth pb-20">
         <User />
         <Messages messages={messages} />
         <div ref={scrollRef}></div>

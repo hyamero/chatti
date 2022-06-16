@@ -1,4 +1,5 @@
 import React from "react";
+import { IUser } from "../../types/model";
 import { useAuth } from "../contexts/AuthContext";
 
 interface MessagesProps {
@@ -8,29 +9,40 @@ interface MessagesProps {
 export const Messages: React.FC<MessagesProps> = ({ messages }) => {
   const { data } = useAuth();
   return (
-    <div className="space-y-3">
-      {messages.map((message: any) => (
-        <Message key={message.id} message={message} userData={data} />
-      ))}
+    <div className="flex flex-col px-6">
+      {messages
+        .map((message: any) => (
+          <Message key={message.id} message={message} userData={data} />
+        ))
+        .reverse()}
     </div>
   );
 };
 
 interface MessageProps {
   message: any;
-  userData: any;
+  userData: IUser;
 }
 
 const Message: React.FC<MessageProps> = ({ message, userData }) => {
   return (
-    <div
-      className={`${
-        message.author.id === userData.id
-          ? "bg-system-blue pr-7 text-right"
-          : "bg-system-gray-chat pl-7 text-left"
-      }`}
-    >
-      <p>{message.messageValue}</p>
-    </div>
+    <>
+      <label
+        className={`${
+          message.author.id === userData.id
+            ? "hidden"
+            : "relative left-3 text-sm text-system-gray-2"
+        }`}
+      >
+        {message.author.name}
+      </label>
+      <p
+        className={`p ${
+          message.author.id === userData.id ? "send" : "receive"
+        }`}
+      >
+        {message.messageValue}
+      </p>
+    </>
   );
 };
