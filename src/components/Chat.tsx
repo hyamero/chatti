@@ -40,13 +40,17 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
         });
       });
 
-      scrollRef.current?.scrollIntoView();
       setMessages(_messages);
+      console.log("scroll!");
       console.log(_messages);
     });
 
     return snapshot;
   }, []);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView();
+  }, [messages]);
 
   const createMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,6 +65,7 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
       });
 
       setMessageValue("");
+      // scrollRef.current?.scrollIntoView();
     }
   };
 
@@ -76,7 +81,7 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
       <div className="scroll-container h-full w-full overflow-x-hidden overflow-y-scroll scroll-smooth pb-3">
         <User />
         <Messages messages={messages} />
-        <div ref={scrollRef}></div>
+        <span ref={scrollRef}></span>
       </div>
       {/* Message Input */}
       <div className="flex w-full items-center justify-between space-x-3 rounded-br-lg bg-system-gray-6 p-5">
