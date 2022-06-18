@@ -10,7 +10,7 @@ import {
   limit,
   onSnapshot,
 } from "firebase/firestore";
-import { auth, db } from "../config/firebase";
+import { db } from "../config/firebase";
 
 import { AiFillPlusCircle } from "react-icons/ai";
 import { BsEmojiWink, BsImageFill } from "react-icons/bs";
@@ -41,8 +41,6 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
       });
 
       setMessages(_messages);
-      console.log("scroll!");
-      console.log(_messages);
     });
 
     return snapshot;
@@ -65,7 +63,6 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
       });
 
       setMessageValue("");
-      // scrollRef.current?.scrollIntoView();
     }
   };
 
@@ -74,12 +71,11 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
       <div className="z-10 flex w-full justify-between rounded-tr-lg bg-system-gray-5 px-8 pt-7 pb-3">
         <div>
           <span className="text-system-gray-2 ">To: </span>{" "}
-          <span className=" font-medium">Eliza Block</span>
+          <span className=" font-medium">Public</span>
         </div>
         <span className="cursor-pointer text-[#00A9F6]">Details</span>
       </div>
-      <div className="scroll-container h-full w-full overflow-x-hidden overflow-y-scroll scroll-smooth pb-3">
-        <User />
+      <div className=" scroll-container h-full w-full overflow-x-hidden overflow-y-scroll scroll-smooth py-3">
         <Messages messages={messages} />
         <span ref={scrollRef}></span>
       </div>
@@ -108,30 +104,6 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
         </form>
         <BsEmojiWink className="cursor-pointer text-3xl text-system-gray-dark-2" />
       </div>
-    </div>
-  );
-};
-
-const User: React.FC = () => {
-  const { signOut, data } = useAuth();
-
-  return (
-    <div className="my-10 w-full text-center">
-      <h1>Hello, Firebase Auth</h1>
-      <h2>Welcome, {data.username} </h2>
-      <img
-        src={data.photoURL as string}
-        alt="user image"
-        className="mx-auto rounded-full"
-      />
-      <button
-        onClick={() => {
-          signOut();
-        }}
-        className="mt-3 rounded bg-system-gray-5 p-3 text-black"
-      >
-        Sign Out
-      </button>
     </div>
   );
 };

@@ -5,7 +5,8 @@ export interface IUser {
     email?: string | null;
     dateJoined?: any;
     uid?: string;
-    displayName?: string;
+    displayName?: string | null;
+    email? : string | null;
   }
 
   export interface IMessage {

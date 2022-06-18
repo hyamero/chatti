@@ -62,12 +62,14 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(moreUserInfo);
 
       if (moreUserInfo?.isNewUser) {
-        const { uid, email, metadata, photoURL } = _user.user;
+        const { uid, email, metadata, photoURL, displayName } = _user.user;
 
         const payload: IUser = {
           photoURL,
           dateJoined: metadata.creationTime,
           username: email?.split("@")[0].toLowerCase(),
+          displayName,
+          email,
         };
 
         await setDoc(doc(db, "users", uid), payload);
