@@ -7,6 +7,7 @@ export interface IUser {
     uid?: string;
     displayName?: string | null;
     email? : string | null;
+    displayData: boolean;
   }
 
   export interface IMessage {

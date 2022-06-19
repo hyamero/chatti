@@ -73,7 +73,7 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
           <span className="text-system-gray-2 ">To: </span>{" "}
           <span className=" font-medium">Public</span>
         </div>
-        <span className="cursor-pointer text-[#00A9F6]">Details</span>
+        <span className="cursor-pointer text-system-blue">Details</span>
       </div>
       <div className=" scroll-container h-full w-full overflow-x-hidden overflow-y-scroll scroll-smooth py-3">
         <Messages messages={messages} />

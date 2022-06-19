@@ -7,7 +7,7 @@ module.exports = {
       },
       colors: {
         system: {
-          blue: "#007AFF",
+          blue: "#0b93f6",
           gray: {
             1: "#8E8E93",
             2: "#AEAEB2",
@@ -15,7 +15,7 @@ module.exports = {
             5: "#E5E5EA",
             6: "#F2F2F7",
             7: "#2C2C2E",
-            chat: "#E9E9EB",
+            chat: "#E8E8E8",
             chatName: "#3C3C43",
             dark: {
               1: "#8E8E93",

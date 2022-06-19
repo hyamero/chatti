@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BsPencilSquare, BsSearch } from "react-icons/bs";
 import { useAuth } from "../contexts/AuthContext";
 import Image from "next/image";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
+import { useUserContext } from "./Chatti";
 
 interface UserProps {}
 
@@ -10,10 +13,10 @@ export const User: React.FC<UserProps> = ({}) => {
 
   const displayName = data.displayName ? data.displayName : data.username;
 
-  console.log(data);
+  const { checked, handleDisplayData } = useUserContext();
 
   return (
-    <div className="flex w-[60%] flex-col justify-between space-y-5 overflow-y-hidden rounded-tl-lg rounded-bl-lg bg-white/70 px-4 pb-10 backdrop-blur-xl">
+    <div className="flex w-[60%] flex-col justify-between space-y-5 overflow-y-hidden rounded-tl-lg rounded-bl-lg bg-white/70 px-4 pb-5 backdrop-blur-xl">
       <div className="flex items-center justify-between pt-4">
         <ul className="flex space-x-2">
           <li className="h-3 w-3 cursor-pointer rounded-full border border-black/10  bg-red-400"></li>
@@ -56,18 +59,33 @@ export const User: React.FC<UserProps> = ({}) => {
       <div className="bg flex items-center justify-between  rounded-lg bg-white/75 py-2 px-4">
         <p>Name and Photo Sharing</p>
         <label className="switch">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={() => {
+              handleDisplayData(data.id);
+            }}
+          />
           <span className="slider"></span>
         </label>
       </div>
-      <button
-        onClick={() => {
-          signOut();
-        }}
-        className=" w-full self-end rounded  bg-white/25 p-3 font-medium text-system-gray-dark-3"
-      >
-        Sign Out
-      </button>
+      <div>
+        <button
+          type="button"
+          className=" w-full self-end rounded bg-system-blue p-3 font-medium text-white"
+        >
+          I&apos;m a Button
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            signOut();
+          }}
+          className="mt-2  w-full self-end rounded  bg-white/50 p-3 font-medium text-system-gray-dark-3"
+        >
+          Sign Out
+        </button>
+      </div>
     </div>
   );
 };

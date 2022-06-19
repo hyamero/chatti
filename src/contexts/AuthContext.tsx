@@ -69,6 +69,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           dateJoined: metadata.creationTime,
           username: email?.split("@")[0].toLowerCase(),
           displayName,
+          displayData: true,
           email,
         };
 
