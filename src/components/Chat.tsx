@@ -17,6 +17,7 @@ import { BsEmojiWink, BsImageFill } from "react-icons/bs";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { IMessage } from "../../types/model";
 import { Messages } from "./Messages";
+import { useUserContext } from "./Chatti";
 
 const messagesRef = collection(db, "messages");
 
@@ -50,16 +51,22 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
     scrollRef.current?.scrollIntoView();
   }, [messages]);
 
+  const { checked } = useUserContext();
+
   const createMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { id, photoURL, username } = data;
+    const { id, photoURL, displayName, username } = data;
+
+    const author = checked
+      ? { name: displayName ? displayName : username, photoURL, id }
+      : { name: "Anonymous", id };
 
     if (messageValue && messageValue.trim().length !== 0) {
       await addDoc(messagesRef, {
         messageValue,
         createdAt: Timestamp.now(),
-        author: { name: username, photoURL, id },
+        author,
       });
 
       setMessageValue("");

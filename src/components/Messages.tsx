@@ -34,25 +34,31 @@ const Message: React.FC<MessageProps> = ({ message, userData }) => {
         !sent ? "flex items-end space-x-2 self-start" : "self-end"
       }`}
     >
-      <div className={`${sent && "hidden"}`}>
-        <Image
-          width={35}
-          height={35}
-          layout="fixed"
-          src={message.author.photoURL as string}
-          alt="user image"
-          className="z-10 rounded-full"
-        />
-      </div>
+      {!sent && (
+        <>
+          {message.author.photoURL ? (
+            <Image
+              width={35}
+              height={35}
+              layout="fixed"
+              src={message.author.photoURL as string}
+              alt="user image"
+              className="z-10 rounded-full"
+            />
+          ) : (
+            <span className="z-10 inline-block h-[35px] w-[35px] rounded-full bg-system-gray-3"></span>
+          )}
+        </>
+      )}
       <div className={`${sent ? "self-end" : "self-start"}`}>
         <label
-          className={`${
+          className={`block ${
             sent ? "hidden" : "relative left-3 text-sm text-system-gray-2"
           }`}
         >
           {message.author.name}
         </label>
-        <p className={`p ${sent ? "send" : "receive"}`}>
+        <p className={`p inline-block ${sent ? "send" : "receive"}`}>
           {message.messageValue}
         </p>
       </div>
