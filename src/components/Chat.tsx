@@ -47,6 +47,8 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
     return snapshot;
   }, []);
 
+  console.log(messages);
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView();
   }, [messages]);

@@ -2,9 +2,10 @@ import Image from "next/image";
 import React from "react";
 import { IUser } from "../../types/model";
 import { useAuth } from "../contexts/AuthContext";
+import { IMessage } from "../../types/model";
 
 interface MessagesProps {
-  messages: any;
+  messages: any[];
 }
 
 export const Messages: React.FC<MessagesProps> = ({ messages }) => {
@@ -12,7 +13,7 @@ export const Messages: React.FC<MessagesProps> = ({ messages }) => {
   return (
     <div className="flex flex-col px-6">
       {messages
-        .map((message: any) => (
+        .map((message: IMessage) => (
           <Message key={message.id} message={message} userData={data} />
         ))
         .reverse()}
@@ -37,23 +38,25 @@ const Message: React.FC<MessageProps> = ({ message, userData }) => {
       {!sent && (
         <>
           {message.author.photoURL ? (
-            <Image
-              width={35}
-              height={35}
-              layout="fixed"
-              src={message.author.photoURL as string}
-              alt="user image"
-              className="z-10 rounded-full"
-            />
+            <div className="relative bottom-[0.1rem]">
+              <Image
+                width={35}
+                height={35}
+                layout="fixed"
+                src={message.author.photoURL as string}
+                alt="user image"
+                className="z-10 rounded-full"
+              />
+            </div>
           ) : (
-            <span className="z-10 inline-block h-[35px] w-[35px] rounded-full bg-system-gray-3"></span>
+            <span className="relative bottom-2 z-10 inline-block h-[35px] w-[35px] rounded-full bg-system-gray-5"></span>
           )}
         </>
       )}
       <div className={`${sent ? "self-end" : "self-start"}`}>
         <label
           className={`block ${
-            sent ? "hidden" : "relative left-3 text-sm text-system-gray-2"
+            sent ? "hidden" : "relative left-3 text-xs text-system-gray-2"
           }`}
         >
           {message.author.name}
