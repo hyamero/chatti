@@ -37,7 +37,7 @@ export const Chatti: React.FC = ({}) => {
 
   return (
     <UserContext.Provider value={contextValues}>
-      <div className="flex h-[70vh] w-[60vw]  max-w-screen-xl">
+      <div className="relative flex h-screen max-h-[1080px] w-screen max-w-screen-xl md:h-[90vh] md:w-[90vw] lg:h-[85vh] lg:w-[85vw] xl:w-[70vw] 2xl:w-[65vw]">
         {/* <Conversations /> */}
         <User />
         <Chat />

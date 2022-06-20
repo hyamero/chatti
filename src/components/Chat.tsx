@@ -47,10 +47,8 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
     return snapshot;
   }, []);
 
-  console.log(messages);
-
   useEffect(() => {
-    scrollRef.current?.scrollIntoView();
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const { checked } = useUserContext();
@@ -76,7 +74,7 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
   };
 
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden rounded-tr-lg rounded-br-lg bg-white">
+    <div className="z-[11] flex h-full w-full flex-col overflow-hidden rounded-tr-lg rounded-br-lg bg-white">
       <div className="z-10 flex w-full justify-between rounded-tr-lg bg-system-gray-5 px-8 pt-7 pb-3">
         <div>
           <span className="text-system-gray-2 ">To: </span>{" "}
@@ -84,7 +82,10 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
         </div>
         <span className="cursor-pointer text-system-blue">Details</span>
       </div>
-      <div className=" scroll-container h-full w-full overflow-x-hidden overflow-y-scroll scroll-smooth py-3">
+      <div className="scroll-container h-full w-full overflow-x-hidden overflow-y-scroll scroll-smooth py-3">
+        <p className="my-10 text-center text-system-gray-1">
+          Maximum of 25 messages are shown.
+        </p>
         <Messages messages={messages} />
         <span ref={scrollRef}></span>
       </div>
