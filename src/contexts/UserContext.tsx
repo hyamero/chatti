@@ -1,10 +1,12 @@
-import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  DocumentSnapshot,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { db } from "../config/firebase";
-import { useAuth } from "../contexts/AuthContext";
-import { Chat } from "./Chat";
-import { Conversations } from "./Conversations";
-import { User } from "./User";
+import { useAuth } from "./AuthContext";
 
 interface UserContextValues {
   checked: boolean;
@@ -13,7 +15,7 @@ interface UserContextValues {
 
 const UserContext = createContext<UserContextValues>({} as UserContextValues);
 
-export const Chatti: React.FC = ({}) => {
+const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const { data } = useAuth();
 
   const [checked, setChecked] = useState<boolean>(true);
@@ -24,24 +26,24 @@ export const Chatti: React.FC = ({}) => {
   };
 
   useEffect(() => {
-    const userDoc = doc(db, "users", data.id as string);
-    const snapshot = onSnapshot(userDoc, (snapshot) => {
-      let _data = snapshot.data();
-      setChecked(_data?.displayData);
-    });
+    try {
+      const userDoc = doc(db, `users/${data.id as string}`);
+      const snapshot = onSnapshot(userDoc, (snapshot: DocumentSnapshot) => {
+        let _data = snapshot.data();
+        setChecked(_data?.displayData);
+      });
 
-    return snapshot;
+      return snapshot;
+    } catch (err) {
+      console.log(err);
+    }
   }, [data]);
 
   const contextValues = { checked, handleDisplayData };
 
   return (
     <UserContext.Provider value={contextValues}>
-      <div className="relative flex h-screen max-h-[1080px] w-screen max-w-screen-xl md:h-[90vh] md:w-[90vw] lg:h-[85vh] lg:w-[85vw] xl:w-[70vw] 2xl:w-[65vw]">
-        {/* <Conversations /> */}
-        <User />
-        <Chat />
-      </div>
+      {children}
     </UserContext.Provider>
   );
 };
@@ -50,3 +52,5 @@ export const useUserContext = () => {
   const data = useContext(UserContext);
   return { ...data };
 };
+
+export default UserProvider;

@@ -1,13 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useState } from "react";
-import { Chatti } from "../src/components/Chatti";
 import { SignIn } from "../src/components/SignIn";
-import { useAuth } from "../src/contexts/AuthContext";
 
 const Home: NextPage = () => {
-  const { login } = useAuth();
-
   return (
     <div>
       <Head>
@@ -17,7 +12,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="App flex h-screen flex-col items-center justify-center font-sfpro">
-        <>{!login ? <SignIn /> : <Chatti />}</>
+        <SignIn />
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ import { BsEmojiWink, BsImageFill } from "react-icons/bs";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { IMessage } from "../../types/model";
 import { Messages } from "./Messages";
-import { useUserContext } from "./Chatti";
+import { useUserContext } from "../contexts/UserContext";
 
 const messagesRef = collection(db, "messages");
 

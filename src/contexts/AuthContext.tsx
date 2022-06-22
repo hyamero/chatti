@@ -15,16 +15,8 @@ import {
 
 import { IUser } from "../../types/model";
 import { auth, db } from "../config/firebase";
-import {
-  doc,
-  // addDoc,
-  setDoc,
-  getDoc,
-  // getDocs,
-  // collection,
-} from "@firebase/firestore";
-
-// const usersCollectionRef = collection(db, "users");
+import { doc, setDoc, getDoc } from "@firebase/firestore";
+import { useRouter } from "next/router";
 
 interface AuthContextValues {
   user: User | null;
@@ -40,6 +32,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(() => auth.currentUser);
   const [data, setData] = useState({} as IUser);
   const [login, setLogin] = useState(false);
+
+  const { push, asPath } = useRouter();
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((_user) => {
@@ -76,34 +70,35 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         await setDoc(doc(db, "users", uid), payload);
       }
       setLogin(true);
-      console.log("end loading");
+      push("/direct/public");
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [push]);
 
   useEffect(() => {
     const getUserData = async () => {
       if (user) {
         const res = await getDoc(doc(db, "users", user.uid));
         setData({ ...res.data(), id: res.id } as IUser);
-        console.log(res);
-        console.log("resolved");
       }
     };
 
     getUserData();
-  }, [user]);
+
+    if (user && asPath === "/") push("/direct/public");
+  }, [user, asPath, push]);
 
   const signOut = useCallback(async () => {
     try {
       await auth.signOut();
       setLogin(false);
+      push("/");
       console.log(auth);
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [push]);
 
   const contextValues = useMemo(
     () => ({ user, signIn, signOut, data, login }),

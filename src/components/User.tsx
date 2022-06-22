@@ -2,7 +2,7 @@ import React from "react";
 import { BsPencilSquare, BsSearch } from "react-icons/bs";
 import { useAuth } from "../contexts/AuthContext";
 import Image from "next/image";
-import { useUserContext } from "./Chatti";
+import { useUserContext } from "../contexts/UserContext";
 
 interface UserProps {}
 
@@ -28,20 +28,24 @@ export const User: React.FC<UserProps> = ({}) => {
         <form className="relative mt-5 flex">
           <BsSearch className="absolute left-3 top-1/4 text-[#827478]" />
           <input
-            type="text"
+            type="search"
             placeholder="Search"
             className="w-full rounded-md bg-white/50 py-2 pl-8 pr-5 outline-none placeholder:text-[#827478]"
           />
         </form>
 
         <div className="rounded-lg bg-white/75 py-5 text-center">
-          <Image
-            width={120}
-            height={120}
-            src={data.photoURL as string}
-            alt="user image"
-            className="z-10 rounded-full border border-system-gray-1 p-4"
-          />
+          {data.photoURL ? (
+            <Image
+              width={120}
+              height={120}
+              src={data.photoURL as string}
+              alt="user image"
+              className="z-10 rounded-full border border-system-gray-1 p-4"
+            />
+          ) : (
+            <span className="relative bottom-2 z-10 inline-block h-[120px] w-[120px] rounded-full bg-system-gray-5"></span>
+          )}
           <button className="mx-auto block text-[#00A9F6]">Edit</button>
         </div>
 
