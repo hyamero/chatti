@@ -14,8 +14,8 @@ export const User: React.FC<UserProps> = ({}) => {
   const { checked, handleDisplayData } = useUserContext();
 
   return (
-    <div className="absolute left-0 top-0 flex h-full w-full flex-col justify-between overflow-y-auto rounded-tl-lg rounded-bl-lg bg-white/70 px-4 pb-5 backdrop-blur-xl md:static md:w-[70%] lg:w-[60%]">
-      <div className="flex items-center justify-between pt-4">
+    <aside className="absolute left-0 top-0 flex h-full w-full flex-col justify-between rounded-tl-lg rounded-bl-lg bg-white/70 backdrop-blur-xl md:static md:w-[70%] lg:w-[60%]">
+      <div className="flex items-center justify-between p-4">
         <ul className="flex space-x-2">
           <li className="h-3 w-3 cursor-pointer rounded-full border border-black/10  bg-red-400"></li>
           <li className="h-3 w-3 cursor-pointer rounded-full border border-black/10 bg-yellow-400"></li>
@@ -24,7 +24,7 @@ export const User: React.FC<UserProps> = ({}) => {
         <BsPencilSquare className="pointer-cursor cursor-pointer text-xl text-system-gray-dark-2" />
       </div>
 
-      <div className="flex h-full flex-col space-y-5">
+      <div className="relative flex h-full flex-col space-y-5 overflow-y-auto px-4 pb-5">
         <form className="relative mt-5 flex">
           <BsSearch className="absolute left-3 top-1/4 text-[#827478]" />
           <input
@@ -74,16 +74,16 @@ export const User: React.FC<UserProps> = ({}) => {
             Disable this setting to enter anonymous mode.
           </p>
         </div>
+        <button
+          type="button"
+          onClick={() => {
+            signOut();
+          }}
+          className="rounded bg-system-blue p-3 font-medium text-white"
+        >
+          Sign Out
+        </button>
       </div>
-      <button
-        type="button"
-        onClick={() => {
-          signOut();
-        }}
-        className="mt-5 w-full self-end rounded bg-system-blue p-3 font-medium text-white"
-      >
-        Sign Out
-      </button>
-    </div>
+    </aside>
   );
 };
