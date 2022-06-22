@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import "../styles/tailwind.css";
 import "../styles/chat.css";
 import "../styles/switch.css";
+import "../styles/spinner.css";
 
 import type { AppProps } from "next/app";
 import { AuthProvider } from "../src/contexts/AuthContext";

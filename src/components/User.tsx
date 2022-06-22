@@ -55,7 +55,7 @@ export const User: React.FC<UserProps> = ({}) => {
           </p>
           <hr className="h-[2px]" />
           <p className="rounded-b-lg bg-white/75 py-2 px-4 lowercase text-system-gray-dark-2">
-            {data.email}
+            {data.email ? data.email : "example@email.com"}
           </p>
         </div>
 

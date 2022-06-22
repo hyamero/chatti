@@ -23,7 +23,7 @@ interface AuthContextValues {
   signIn: () => void;
   signOut: () => void;
   data: IUser;
-  login: boolean;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextValues>({} as AuthContextValues);
@@ -31,7 +31,8 @@ const AuthContext = createContext<AuthContextValues>({} as AuthContextValues);
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(() => auth.currentUser);
   const [data, setData] = useState({} as IUser);
-  const [login, setLogin] = useState(false);
+
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { push, asPath } = useRouter();
 
@@ -69,7 +70,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         await setDoc(doc(db, "users", uid), payload);
       }
-      setLogin(true);
+
       push("/direct/public");
     } catch (err) {
       console.log(err);
@@ -79,6 +80,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const getUserData = async () => {
       if (user) {
+        setLoading(true);
         const res = await getDoc(doc(db, "users", user.uid));
         setData({ ...res.data(), id: res.id } as IUser);
       }
@@ -87,22 +89,21 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     getUserData();
 
     if (user && asPath === "/") push("/direct/public");
+    setLoading(false);
   }, [user, asPath, push]);
 
   const signOut = useCallback(async () => {
     try {
       await auth.signOut();
-      setLogin(false);
       push("/");
-      console.log(auth);
     } catch (err) {
       console.log(err);
     }
   }, [push]);
 
   const contextValues = useMemo(
-    () => ({ user, signIn, signOut, data, login }),
-    [user, signIn, signOut, data, login]
+    () => ({ user, signIn, signOut, data, loading }),
+    [user, signIn, signOut, data, loading]
   );
 
   return (
