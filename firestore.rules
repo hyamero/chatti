@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+  	function docExists(collection, docId) {
+    	return exists(/databases/$(database)/documents/$(collection)/$(docId));
+    }
+
+    function currentUser() {
+    	return request.auth.uid; 
+    }
+    
+    function isOwner() {
+   		let isSignedIn = currentUser() != null;
+    	let _isOwner = currentUser() == resource.id;
+      
+      return isSignedIn && _isOwner;
+    }
+    
+    function isAdmin(userId) {
+    	return docExists('admins', userId)
+    }
+    
+    match /users/{userId} {
+    	allow read: if currentUser() != null;
+      allow create: if !docExists('users', userId);
+      allow update: if isOwner();
+    }
+
+    match /messages/{docId} {
+    	allow read, create: if currentUser() != null;
+      allow update, delete: if isAdmin(currentUser())
+    }
+  }
+}
