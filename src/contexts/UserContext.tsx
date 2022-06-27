@@ -28,12 +28,18 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     try {
       const userDoc = doc(db, `users/${data.id as string}`);
-      const snapshot = onSnapshot(userDoc, (snapshot: DocumentSnapshot) => {
-        let _data = snapshot.data();
-        setChecked(_data?.displayData);
-      });
+      const unsub = onSnapshot(
+        userDoc,
+        (snapshot) => {
+          let _data = snapshot.data();
+          setChecked(_data?.displayData);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
 
-      return snapshot;
+      return () => unsub();
     } catch (err) {
       console.log(err);
     }

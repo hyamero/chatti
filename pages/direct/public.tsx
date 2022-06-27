@@ -1,9 +1,6 @@
-import { doc, onSnapshot, updateDoc } from "firebase/firestore";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React from "react";
 import { Chat } from "../../src/components/Chat";
 import { User } from "../../src/components/User";
-import { db } from "../../src/config/firebase";
-import { useAuth } from "../../src/contexts/AuthContext";
 import UserProvider from "../../src/contexts/UserContext";
 
 const Public: React.FC = ({}) => {

@@ -32,19 +32,22 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
 
   useEffect(() => {
     const q = query(messagesRef, orderBy("createdAt", "desc"), limit(25));
-    const snapshot = onSnapshot(q, (snapshot) => {
-      let _messages: any = [];
-      snapshot.docs.forEach((doc) => {
-        _messages.push({
+    const unsub = onSnapshot(
+      q,
+      (snapshot) => {
+        const data = snapshot.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
-        });
-      });
+        }));
 
-      setMessages(_messages);
-    });
+        setMessages(data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
 
-    return snapshot;
+    return () => unsub();
   }, []);
 
   useEffect(() => {
