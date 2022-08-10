@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { useAuth } from "../contexts/AuthContext";
 
 interface SignInProps {}
@@ -16,7 +17,11 @@ export const SignIn: React.FC<SignInProps> = ({}) => {
       </p>
       <button
         onClick={() => {
-          signIn();
+          toast.promise(signIn() as any, {
+            loading: "Sign in...",
+            success: <b>Signed in successfully!</b>,
+            error: <b>Could not sign in.</b>,
+          });
         }}
         type="button"
         className="login-with-google-btn rounded bg-system-blue p-3 text-white"

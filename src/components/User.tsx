@@ -1,7 +1,8 @@
-import React from "react";
-import { BsPencilSquare, BsSearch } from "react-icons/bs";
-import { useAuth } from "../contexts/AuthContext";
+import React, { useState } from "react";
 import Image from "next/image";
+import toast from "react-hot-toast";
+import { useAuth } from "../contexts/AuthContext";
+import { BsPencilSquare, BsSearch } from "react-icons/bs";
 import { useUserContext } from "../contexts/UserContext";
 
 interface UserProps {}
@@ -12,6 +13,8 @@ export const User: React.FC<UserProps> = ({}) => {
   const displayName = data.displayName ? data.displayName : data.username;
 
   const { checked, handleDisplayData } = useUserContext();
+
+  const [disableBtn, setDisableBtn] = useState<boolean>(false);
 
   return (
     <aside className="absolute left-0 top-0 flex h-full w-full flex-col justify-between rounded-tl-lg rounded-bl-lg bg-white/70 backdrop-blur-xl md:static md:w-[70%] lg:w-[60%]">
@@ -65,9 +68,23 @@ export const User: React.FC<UserProps> = ({}) => {
             <label className="switch">
               <input
                 type="checkbox"
+                disabled={disableBtn}
                 checked={checked}
                 onChange={() => {
                   handleDisplayData(data.id);
+
+                  if (checked) toast.error("Anonymous mode disabled");
+                  else toast.success("Anonymous mode enabled");
+
+                  // Rate limiter
+                  toast("You can change this setting again in a few seconds.", {
+                    duration: 4000,
+                  });
+
+                  setDisableBtn(true);
+                  setTimeout(() => {
+                    setDisableBtn(false);
+                  }, 5000);
                 }}
               />
               <span className="slider"></span>
@@ -81,7 +98,11 @@ export const User: React.FC<UserProps> = ({}) => {
         <button
           type="button"
           onClick={() => {
-            signOut();
+            toast.promise(signOut(), {
+              loading: "Signing out...",
+              success: <b>Signed out successfully!</b>,
+              error: <b>Could not sign out.</b>,
+            });
           }}
           className="rounded bg-system-blue p-3 font-medium text-white"
         >

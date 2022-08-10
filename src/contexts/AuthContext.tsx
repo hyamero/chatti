@@ -20,8 +20,8 @@ import { useRouter } from "next/router";
 
 interface AuthContextValues {
   user: User | null;
-  signIn: () => void;
-  signOut: () => void;
+  signIn: () => Promise<void>;
+  signOut: () => Promise<void>;
   data: IUser;
   loading: boolean;
 }
@@ -49,12 +49,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const provider = new GoogleAuthProvider();
 
     try {
-      console.log("start loading");
       const _user = await signInWithPopup(auth, provider);
       const moreUserInfo = getAdditionalUserInfo(_user);
-      console.log(auth);
-      console.log(_user);
-      console.log(moreUserInfo);
 
       if (moreUserInfo?.isNewUser) {
         const { uid, email, metadata, photoURL, displayName } = _user.user;
