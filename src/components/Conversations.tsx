@@ -1,3 +1,5 @@
+// Unused Component, but kept for future use
+
 import React, { useState } from "react";
 import { BsPencilSquare, BsSearch } from "react-icons/bs";
 

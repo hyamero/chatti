@@ -29,8 +29,9 @@ export const User: React.FC<UserProps> = ({}) => {
 
       <div className="relative flex h-full flex-col space-y-5 overflow-y-auto px-4 pb-5">
         <form className="relative mt-5 flex">
-          <BsSearch className="absolute left-3 top-1/4 text-[#827478]" />
+          <BsSearch className="absolute left-3 top-1/3 text-[#827478]" />
           <input
+            maxLength={70}
             type="search"
             placeholder="Search"
             className="w-full rounded-md bg-white/50 py-2 pl-8 pr-5 outline-none placeholder:text-[#827478]"

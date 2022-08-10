@@ -106,6 +106,7 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
         >
           <input
             type="text"
+            maxLength={355}
             placeholder="Aa"
             className="w-full rounded-full border-2 border-system-gray-3 py-1 pl-5 pr-11 text-xl outline-none"
             onChange={(e) => setMessageValue(e.target.value)}
