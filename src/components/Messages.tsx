@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { IMessage } from "../../types/model";
 
 interface MessagesProps {
-  messages: any[];
+  messages: IMessage[];
 }
 
 export const Messages: React.FC<MessagesProps> = ({ messages }) => {

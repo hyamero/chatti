@@ -17,7 +17,7 @@ export const SignIn: React.FC<SignInProps> = ({}) => {
       </p>
       <button
         onClick={() => {
-          toast.promise(signIn() as any, {
+          toast.promise(signIn(), {
             loading: "Sign in...",
             success: <b>Signed in successfully!</b>,
             error: <b>Could not sign in.</b>,
