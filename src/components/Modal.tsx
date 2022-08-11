@@ -4,9 +4,14 @@ import toast from "react-hot-toast";
 import { useAuth } from "../contexts/AuthContext";
 import { useGlobal } from "../contexts/GlobalContext";
 
-export default function MyModal() {
+interface ModalProps {
+  children: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+const Modal: React.FC<ModalProps> = ({ children, title, description }) => {
   const { isOpen, closeModal } = useGlobal();
-  const { signOut } = useAuth();
 
   return (
     <>
@@ -40,43 +45,12 @@ export default function MyModal() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Sign out?
+                    {title}
                   </Dialog.Title>
                   <div className="mt-2 mb-8">
-                    <p className="text-gray-80000 text-base">
-                      Are you sure you want to sign out?
-                    </p>
+                    <p className="text-gray-80000 text-base">{description}</p>
                   </div>
-
-                  <div className=" absolute bottom-0 left-0 flex w-full justify-around border-t border-t-gray-300 pt-2 pb-3 text-lg">
-                    <button
-                      type="button"
-                      className="  text-system-blue transition-colors hover:text-blue-400 "
-                      onClick={closeModal}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="button"
-                      className=" text-system-blue transition-colors hover:text-red-500"
-                      onClick={() =>
-                        toast.promise(signOut(), {
-                          loading: "Sign in...",
-                          success: <b>Signed out successfully!</b>,
-                          error: <b>Could not sign in.</b>,
-                        })
-                      }
-                    >
-                      Sign out
-                    </button>
-                    <span className="absolute left-1/2 top-0 h-full w-[1px] -translate-x-1/2 bg-gray-300" />
-                  </div>
-
-                  {/* Dummy for space */}
-                  <div className="invisible mt-5">
-                    <span>Cancel</span>
-                    <span>Sign out</span>
-                  </div>
+                  {children}
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -85,4 +59,6 @@ export default function MyModal() {
       </Transition>
     </>
   );
-}
+};
+
+export default Modal;
