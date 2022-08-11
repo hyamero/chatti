@@ -45,6 +45,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return unsub;
   }, []);
 
+  /**
+   * Sign in
+   */
+
   const signIn = useCallback(async () => {
     const provider = new GoogleAuthProvider();
 
@@ -73,6 +77,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [push]);
 
+  /**
+   * Get user data
+   */
+
   useEffect(() => {
     const getUserData = async () => {
       if (user) {
@@ -88,6 +96,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setLoading(false);
   }, [user, asPath, push]);
 
+  /**
+   * Sign Out
+   */
+
   const signOut = useCallback(async () => {
     try {
       await auth.signOut();
@@ -96,6 +108,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(err);
     }
   }, [push]);
+
+  /**
+   * Modal
+   */
 
   const contextValues = useMemo(
     () => ({ user, signIn, signOut, data, loading }),

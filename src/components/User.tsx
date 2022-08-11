@@ -4,16 +4,15 @@ import toast from "react-hot-toast";
 import { useAuth } from "../contexts/AuthContext";
 import { BsPencilSquare, BsSearch } from "react-icons/bs";
 import { useUserContext } from "../contexts/UserContext";
+import { useGlobal } from "../contexts/GlobalContext";
 
 interface UserProps {}
 
 export const User: React.FC<UserProps> = ({}) => {
   const { signOut, data } = useAuth();
-
+  const { openModal } = useGlobal();
   const displayName = data.displayName ? data.displayName : data.username;
-
   const { checked, handleDisplayData } = useUserContext();
-
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
 
   return (
@@ -99,11 +98,7 @@ export const User: React.FC<UserProps> = ({}) => {
         <button
           type="button"
           onClick={() => {
-            toast.promise(signOut(), {
-              loading: "Signing out...",
-              success: <b>Signed out successfully!</b>,
-              error: <b>Could not sign out.</b>,
-            });
+            openModal();
           }}
           className="rounded bg-system-blue p-3 font-medium text-white"
         >
