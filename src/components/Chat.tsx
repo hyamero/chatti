@@ -75,8 +75,8 @@ export const Chat: React.FC = ({}) => {
   };
 
   return (
-    <div className="z-[11] flex h-full w-full flex-col overflow-hidden rounded-tr-lg rounded-br-lg bg-white">
-      <div className="z-10 flex w-full justify-between rounded-tr-lg bg-system-gray-5 px-8 pt-7 pb-3">
+    <div className="z-[11] flex h-full w-full flex-col overflow-hidden rounded-tr-lg rounded-br-lg border-l-[1.5px] border-gray-300 bg-white">
+      <div className="z-10 flex w-full justify-between rounded-tr-lg border-b-[1.5px] border-gray-300 bg-system-gray-5 px-8 pt-7 pb-3">
         <div>
           <span className="text-system-gray-2 ">To: </span>{" "}
           <span className=" font-medium">Public</span>
@@ -91,7 +91,7 @@ export const Chat: React.FC = ({}) => {
         <span ref={scrollRef}></span>
       </div>
       {/* Message Input */}
-      <div className="flex w-full items-center justify-between space-x-3 rounded-br-lg bg-system-gray-6 p-5">
+      <div className="flex w-full items-center justify-between space-x-3 rounded-br-lg border-t-[1.5px] border-gray-300 bg-system-gray-6 p-5">
         <div className="icons flex items-center space-x-3 text-system-gray-dark-1">
           <AiFillPlusCircle className="cursor-pointer text-[1.7rem]" />
           <BsImageFill className="cursor-pointer text-2xl" />
