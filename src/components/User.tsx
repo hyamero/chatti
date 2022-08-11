@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
-import { useAuth } from "../contexts/AuthContext";
 import { BsPencilSquare, BsSearch } from "react-icons/bs";
+
+import { SignOut } from "./SignOut";
+import { useAuth } from "../contexts/AuthContext";
 import { useUserContext } from "../contexts/UserContext";
-import { useGlobal } from "../contexts/GlobalContext";
-import Modal from "./Modal";
 
 interface UserProps {}
 
 export const User: React.FC<UserProps> = ({}) => {
-  const { signOut, data } = useAuth();
-  const { openModal, closeModal } = useGlobal();
-  const displayName = data.displayName ? data.displayName : data.username;
+  const { data } = useAuth();
   const { checked, handleDisplayData } = useUserContext();
+
+  const displayName = data.displayName ? data.displayName : data.username;
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
 
   return (
     <aside className="absolute left-0 top-0 flex h-full w-full flex-col justify-between rounded-tl-lg rounded-bl-lg bg-white/70 backdrop-blur-xl md:static md:w-[70%] lg:w-[60%]">
       <div className="flex items-center justify-between p-4">
-        <ul className="flex space-x-2">
-          <li className="h-3 w-3 cursor-pointer rounded-full border border-black/10  bg-red-400"></li>
-          <li className="h-3 w-3 cursor-pointer rounded-full border border-black/10 bg-yellow-400"></li>
-          <li className="h-3 w-3 cursor-pointer rounded-full border border-black/10 bg-green-400"></li>
+        <ul className="[&>li]:h-3 [&>li]:w-3 [&>li]:cursor-pointer [&>li]:rounded-full [&>li]:border [&>li]:border-black/10 flex space-x-2">
+          <li className="bg-red-400"></li>
+          <li className="bg-yellow-400"></li>
+          <li className="bg-green-400"></li>
         </ul>
         <BsPencilSquare className="pointer-cursor cursor-pointer text-xl text-system-gray-dark-2" />
       </div>
@@ -96,50 +96,7 @@ export const User: React.FC<UserProps> = ({}) => {
             Disable this setting to enter anonymous mode.
           </p>
         </div>
-        <button
-          type="button"
-          onClick={() => {
-            openModal();
-          }}
-          className="rounded bg-system-blue p-3 font-medium text-white"
-        >
-          Sign Out
-        </button>
-
-        <Modal
-          title="Sign out?"
-          description="Are you sure you want to sign out?"
-        >
-          <div className=" absolute bottom-0 left-0 flex w-full justify-around border-t border-t-gray-300 pt-2 pb-3 text-lg">
-            <button
-              type="button"
-              className="text-system-blue transition-colors hover:text-blue-400 "
-              onClick={closeModal}
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              className=" text-system-blue transition-colors hover:text-red-500"
-              onClick={() =>
-                toast.promise(signOut(), {
-                  loading: "Sign in...",
-                  success: <b>Signed out successfully!</b>,
-                  error: <b>Could not sign in.</b>,
-                })
-              }
-            >
-              Sign out
-            </button>
-            <span className="absolute left-1/2 top-0 h-full w-[1px] -translate-x-1/2 bg-gray-300" />
-          </div>
-
-          {/* Dummy for space */}
-          <div className="invisible mt-5">
-            <span>Cancel</span>
-            <span>Sign out</span>
-          </div>
-        </Modal>
+        <SignOut />
       </div>
     </aside>
   );
