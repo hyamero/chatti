@@ -21,14 +21,12 @@ import { useUserContext } from "../contexts/UserContext";
 
 const messagesRef = collection(db, "messages");
 
-interface ConversationProps {}
-
-export const Chat: React.FC<ConversationProps> = ({}) => {
+export const Chat: React.FC = ({}) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const { data } = useAuth();
   const [messageValue, setMessageValue] = useState<string>("");
-  const [messages, setMessages] = useState<any>([] as IMessage);
+  const [messages, setMessages] = useState([] as IMessage[]);
 
   useEffect(() => {
     const q = query(messagesRef, orderBy("createdAt", "desc"), limit(25));
@@ -40,7 +38,7 @@ export const Chat: React.FC<ConversationProps> = ({}) => {
           id: doc.id,
         }));
 
-        setMessages(data);
+        setMessages(data as IMessage[]);
       },
       (err) => {
         console.log(err);
