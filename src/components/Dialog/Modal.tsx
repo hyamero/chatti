@@ -1,8 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import toast from "react-hot-toast";
-import { useAuth } from "../contexts/AuthContext";
-import { useGlobal } from "../contexts/GlobalContext";
+import { useGlobal } from "../../contexts/GlobalContext";
 
 interface ModalProps {
   children: React.ReactNode;
@@ -11,11 +9,11 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ children, title, description }) => {
-  const { isOpen, closeModal } = useGlobal();
+  const { modalOpen, closeModal } = useGlobal();
 
   return (
     <>
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={modalOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[12]" onClose={closeModal}>
           <Transition.Child
             as={Fragment}

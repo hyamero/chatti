@@ -2,7 +2,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "../contexts/AuthContext";
 import { useGlobal } from "../contexts/GlobalContext";
-import Modal from "./Modal";
+import Modal from "./Dialog/Modal";
 
 export const SignOut = () => {
   const { openModal, closeModal } = useGlobal();
