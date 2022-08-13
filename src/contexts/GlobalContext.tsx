@@ -1,9 +1,12 @@
 import React, { useRef, useContext, createContext, useState } from "react";
 
 interface GlobalContextProps {
-  isOpen: boolean;
+  modalOpen: boolean;
   closeModal: () => void;
   openModal: () => void;
+  userInfoOpen: boolean;
+  closeUserInfo: () => void;
+  openUserInfo: () => void;
 }
 
 const GlobalContext = createContext<GlobalContextProps>(
@@ -11,18 +14,37 @@ const GlobalContext = createContext<GlobalContextProps>(
 );
 
 const GlobalContextProvider = ({ children }: { children: React.ReactNode }) => {
-  let [isOpen, setIsOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const closeModal = () => {
-    setIsOpen(false);
+    setModalOpen(false);
   };
 
   const openModal = () => {
-    setIsOpen(true);
+    setModalOpen(true);
+  };
+
+  const [userInfoOpen, setUserInfoOpen] = useState(false);
+
+  const closeUserInfo = () => {
+    setUserInfoOpen(false);
+  };
+
+  const openUserInfo = () => {
+    setUserInfoOpen(true);
   };
 
   return (
-    <GlobalContext.Provider value={{ isOpen, closeModal, openModal }}>
+    <GlobalContext.Provider
+      value={{
+        modalOpen,
+        closeModal,
+        openModal,
+        userInfoOpen,
+        closeUserInfo,
+        openUserInfo,
+      }}
+    >
       {children}
     </GlobalContext.Provider>
   );

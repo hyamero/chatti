@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <Toaster position="top-center" reverseOrder={true} />
-      <main className="h-screen">{display}</main>;
+      <main className="h-screen">{display}</main>
     </>
   );
 };
