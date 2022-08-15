@@ -4,8 +4,8 @@ import TransitionWrap from "./TransitionWrap";
 
 interface ModalProps {
   children: React.ReactNode;
-  title: string;
   description: string;
+  title: string;
 }
 
 const Modal: React.FC<ModalProps> = ({ children, title, description }) => {

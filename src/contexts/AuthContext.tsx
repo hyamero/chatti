@@ -109,10 +109,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [push]);
 
-  /**
-   * Modal
-   */
-
   const contextValues = useMemo(
     () => ({ user, signIn, signOut, data, loading }),
     [user, signIn, signOut, data, loading]

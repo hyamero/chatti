@@ -7,6 +7,7 @@ interface GlobalContextProps {
   userInfoOpen: boolean;
   closeUserInfo: () => void;
   openUserInfo: () => void;
+  closeAllDialog: () => void;
 }
 
 const GlobalContext = createContext<GlobalContextProps>(
@@ -34,6 +35,11 @@ const GlobalContextProvider = ({ children }: { children: React.ReactNode }) => {
     setUserInfoOpen(true);
   };
 
+  const closeAllDialog = () => {
+    closeModal();
+    closeUserInfo();
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -43,6 +49,7 @@ const GlobalContextProvider = ({ children }: { children: React.ReactNode }) => {
         userInfoOpen,
         closeUserInfo,
         openUserInfo,
+        closeAllDialog,
       }}
     >
       {children}
