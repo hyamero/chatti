@@ -1,7 +1,11 @@
 import React from "react";
 import UserProvider from "../../src/contexts/UserContext";
+
 import { Chat } from "../../src/components/Chat";
 import { User } from "../../src/components/User";
+import { Conversations } from "../../src/components/Conversations";
+
+import { BsPencilSquare } from "react-icons/bs";
 
 const Public = () => {
   return (
@@ -11,6 +15,9 @@ const Public = () => {
         <UserProvider>
           <User
             showSearch={true}
+            tlButton={
+              <BsPencilSquare className="pointer-cursor cursor-pointer text-xl text-system-gray-dark-2" />
+            }
             parentClass="absolute left-0 top-0 flex h-full w-full flex-col justify-between rounded-tl-lg rounded-bl-lg bg-white/70 backdrop-blur-xl md:static md:w-[70%] lg:w-[60%]"
           />
           <Chat />

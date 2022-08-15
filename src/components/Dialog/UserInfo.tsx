@@ -34,7 +34,12 @@ const UserInfo: React.FC = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="transform overflow-hidden rounded-2xl bg-white p-4 shadow-xl transition-all">
-                  <User showSearch={false} parentClass="text-left" />
+                  <User
+                    clickEvent={closeUserInfo}
+                    tlButton="Close"
+                    showSearch={false}
+                    parentClass="text-left"
+                  />
                 </Dialog.Panel>
               </Transition.Child>
             </div>
