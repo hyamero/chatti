@@ -1,22 +1,27 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
-import { BsPencilSquare, BsSearch } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
 
 import { SignOut } from "./SignOut";
 import { useAuth } from "../contexts/AuthContext";
 import { useUserContext } from "../contexts/UserContext";
-import { useGlobal } from "../contexts/GlobalContext";
 
 interface UserProps {
   parentClass: string;
   showSearch: boolean;
+  tlButton: React.ReactNode | string;
+  clickEvent?: () => void;
 }
 
-export const User: React.FC<UserProps> = ({ parentClass, showSearch }) => {
+export const User: React.FC<UserProps> = ({
+  parentClass,
+  showSearch,
+  tlButton,
+  clickEvent,
+}) => {
   const { data } = useAuth();
   const { checked, handleDisplayData } = useUserContext();
-  const { closeUserInfo } = useGlobal();
 
   const displayName = data.displayName ? data.displayName : data.username;
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
@@ -29,13 +34,12 @@ export const User: React.FC<UserProps> = ({ parentClass, showSearch }) => {
           <li className="bg-yellow-400"></li>
           <li className="bg-green-400"></li>
         </ul>
-        {/* <BsPencilSquare className="pointer-cursor cursor-pointer text-xl text-system-gray-dark-2" /> */}
         <button
           type="button"
-          onClick={() => closeUserInfo()}
+          onClick={() => clickEvent && clickEvent()}
           className="cursor-pointer text-system-blue"
         >
-          Close
+          {tlButton}
         </button>
       </div>
 

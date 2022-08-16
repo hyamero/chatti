@@ -1,7 +1,7 @@
 # Chatti
+
 Simple Public Web Chat made wtih NextJS and Firebase
-  
-   
+
 <h4>
     <a href="https://chatti.vercel.app/">View Demo</a>
   <span> · </span>
@@ -13,6 +13,5 @@ Simple Public Web Chat made wtih NextJS and Firebase
 <br />
 
 <div align="center"> 
-  <img src="/public/assets/thumbnail.png" alt="screenshot" />
+  <img src="/public/assets/chatti-sample.png" alt="screenshot" />
 </div>
-

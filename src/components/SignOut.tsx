@@ -5,7 +5,7 @@ import { useGlobal } from "../contexts/GlobalContext";
 import Modal from "./Dialog/Modal";
 
 export const SignOut = () => {
-  const { openModal, closeModal } = useGlobal();
+  const { openModal, closeModal, closeAllDialog } = useGlobal();
   const { signOut } = useAuth();
 
   return (
@@ -32,13 +32,14 @@ export const SignOut = () => {
           <button
             type="button"
             className=" text-system-blue transition-colors hover:text-red-500"
-            onClick={() =>
+            onClick={() => {
+              closeAllDialog();
               toast.promise(signOut(), {
                 loading: "Sign in...",
                 success: <b>Signed out successfully!</b>,
                 error: <b>Could not sign in.</b>,
-              })
-            }
+              });
+            }}
           >
             Sign out
           </button>
