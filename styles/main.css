@@ -2,11 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-image: url("/assets/background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+@layer components {
+  body {
+    background-color: #f5f5f7;
+  }
+
+  .apple-bg {
+    background-image: url("/assets/background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
 
 @font-face {

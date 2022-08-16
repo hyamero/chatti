@@ -1,12 +1,10 @@
 import type { NextPage } from "next";
-import { SignIn } from "../src/components/SignIn";
+import { Landing } from "../src/components/Landing";
 
 const Home: NextPage = () => {
   return (
-    <div>
-      <div className="App flex h-screen flex-col items-center justify-center font-sfpro">
-        <SignIn />
-      </div>
+    <div className="font-sfpro">
+      <Landing />
     </div>
   );
 };
