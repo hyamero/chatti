@@ -16,9 +16,9 @@ export const Landing: React.FC = () => {
         </h1>
         <div className="mx-auto w-full sm:w-[80%] md:w-full 2xl:w-[60%]">
           <p className="mb-5 text-center text-base font-medium text-black md:text-xl lg:text-xl xl:text-2xl">
-            Getting in touch is more essential than ever. Chat with strangers,
-            people from all over the world. Choose hide your name and photo and
-            chat with anonymity!
+            Getting in touch is more essential than ever. Chat with strangers
+            and people from all over the world. Choose to hide your name and
+            photo and chat with anonymity!
           </p>
         </div>
 
