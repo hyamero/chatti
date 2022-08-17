@@ -48,8 +48,8 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="w-full bg-[#161616] py-14">
-      <div className="mx-auto flex w-[80%] flex-col justify-between gap-10 whitespace-nowrap lg:flex-row lg:gap-40 xl:gap-56">
+    <footer className="w-full bg-[#161616] pt-16 pb-28">
+      <div className="mx-auto flex w-[80%] flex-col justify-between gap-10 whitespace-nowrap lg:flex-row lg:gap-40 xl:gap-96">
         <div className="text-white">
           <p className="block text-3xl font-medium">Kōkai Chatti.</p>
           <p className="text-xl font-medium">
